@@ -13,7 +13,7 @@ export default class AddFriend extends React.Component {
       email: ''
     };
 
-  handleChange = event => {
+  handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
 
@@ -22,7 +22,7 @@ export default class AddFriend extends React.Component {
     });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     const { name, age, email } = this.state;
     axios.post('http://localhost:5000/friends', {
       name: `${name}`,
