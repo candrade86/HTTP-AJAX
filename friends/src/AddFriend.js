@@ -33,7 +33,6 @@ export default class AddFriend extends React.Component {
     })
     .then(response => console.log(response))
     .catch(error => console.error(error));
-    event.preventDefault();
     this.props.history.push('/');
   };
 
