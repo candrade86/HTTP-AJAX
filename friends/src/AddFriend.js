@@ -24,9 +24,9 @@ export default class AddFriend extends React.Component {
     const { name, age, email } = this.state;
 
     axios.post('http://localhost:5000/friends', {
-      name: `${name}`,
+      name: name,
       age: age,
-      email: `${email}`
+      email: email
     })
     .then(response => console.log(response))
     .catch(error => console.error(error));
