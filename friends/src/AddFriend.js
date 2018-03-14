@@ -23,6 +23,7 @@ export default class AddFriend extends React.Component {
 
   handleSubmit = (event) => {
     const { name, age, email } = this.state;
+
     axios.post('http://localhost:5000/friends', {
       name: `${name}`,
       age: parseInt(age, 10),
