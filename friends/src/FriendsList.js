@@ -17,10 +17,13 @@ export default class FriendsList extends React.Component {
   }
 
   deleteFriend = (id, event) => {
-    this.id = id;
     axios.delete(`http://localhost:5000/friends/${id}`)
     .then(response => this.setState(() => ({ friendsList: response.data })))
     .catch(error => console.error(error));
+  }
+
+  updateFriend = (id, event) => {
+    this.props.history.push(`/updateFriend/${id}`);
   }
 
   render() {
@@ -36,7 +39,7 @@ export default class FriendsList extends React.Component {
             <p><strong>Age:</strong> {friend.age}</p>
             <p><strong>Contact:</strong> {friend.email}</p>
             <div className="optionsContainer">
-              <button className="option">Update</button>
+              <button className="option" onClick={this.updateFriend.bind(this, friend.id)}>Update</button>
               <button className="option" onClick={this.deleteFriend.bind(this, friend.id)}>Delete</button>
             </div>
             </div>
