@@ -1,36 +1,29 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import './AddFriend.css'
 
 export default class AddFriend extends React.Component {
 
   state = {
-      name: '',
-      age: 18,
-      email: ''
-    };
+    name: '',
+    age: 18,
+    email: '',
+    redirect: false
+  };
 
   handleChange = (event) => {
     const { name, value } = event.target;
-
-    this.setState({
-      [name]: value
-    });
+    this.setState({ [name]: value });
   };
 
   handleSubmit = (event) => {
+    event.preventDefault();
     const { name, age, email } = this.state;
-
-    axios.post('http://localhost:5000/friends', {
-      name: name,
-      age: age,
-      email: email
-    })
-    .then(response => console.log(response))
+    axios.post('http://localhost:5000/friends', { name, age, email })
+    .then(() => { this.setState({ redirect: true }) })
     .catch(error => console.error(error));
-    this.props.history.push('/');
   };
 
   render() {
@@ -58,9 +51,10 @@ export default class AddFriend extends React.Component {
           <input name="email" type="email" value={this.state.email} onChange={this.handleChange} />
         </label>
         <br /><br />
-          <input type="submit" value="Save" />
+        <input type="submit" value="Save" />
         <br /><br />
       </form>
+      {this.state.redirect && <Redirect to="/" />}
     </div>
     );
   }
