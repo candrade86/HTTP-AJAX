@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
 
 import './AddFriend.css'
 
@@ -26,7 +25,7 @@ export default class AddFriend extends React.Component {
 
     axios.post('http://localhost:5000/friends', {
       name: `${name}`,
-      age: parseInt(age, 10),
+      age: age,
       email: `${email}`
     })
     .then(response => console.log(response))
