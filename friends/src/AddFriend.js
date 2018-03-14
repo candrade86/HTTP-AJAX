@@ -1,16 +1,15 @@
 import React from 'react';
 import axios from 'axios';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import './AddFriend.css'
 
-export default class AddFriend extends React.Component {
+class AddFriend extends React.Component {
 
   state = {
     name: '',
     age: 18,
-    email: '',
-    redirect: false
+    email: ''
   };
 
   handleChange = (event) => {
@@ -22,17 +21,17 @@ export default class AddFriend extends React.Component {
     event.preventDefault();
     const { name, age, email } = this.state;
     axios.post('http://localhost:5000/friends', { name, age, email })
-    .then(() => { this.setState({ redirect: true }) })
+    .then(() => { this.props.history.push('/') })
     .catch(error => console.error(error));
   };
 
   render() {
     return (
-    <div>
+    <div className="addFriendContainer">
       <Link to="/">
         <p>Return to your friend's list</p>
       </Link>
-      <form onSubmit={this.handleSubmit}>
+      <form className="addFriendForm" onSubmit={this.handleSubmit}>
         <label>
           Name:
           <br />
@@ -54,8 +53,9 @@ export default class AddFriend extends React.Component {
         <input type="submit" value="Save" />
         <br /><br />
       </form>
-      {this.state.redirect && <Redirect to="/" />}
     </div>
     );
   }
 }
+
+export default withRouter(AddFriend);

@@ -1,3 +1,50 @@
-div {
-  text-align: center;
+.friendsListContainer {
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.friendsList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.friend {
+  height: 250px;
+  width: 300px;
+  border: thin solid black;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.deleteFriend {
+  border: thin solid black;
+}
+
+.optionsContainer {
+  margin-top: 12px;
+  width: 170px;
+  height: 41px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.update {
+  height: 41px;
+  width: 70px;
+  border: thin solid black;
+  padding: 10px;
+}
+
+.delete {
+  height: 41px;
+  width: 70px;
+  border: thin solid black;
+  padding: 10px;
 }

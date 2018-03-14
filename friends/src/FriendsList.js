@@ -20,18 +20,24 @@ export default class FriendsList extends React.Component {
 
   render() {
     return (
-      <div className="friendsList">
+      <div className="friendsListContainer">
         <Link to="/addFriend">
-          <p>Add a new friend!</p>
+          <p className="addFriendLink">Add a new friend!</p>
         </Link>
+        <div className="friendsList">
         {this.state.friendsList.map(friend => (
           <div key={friend.id} className="friend">
             <h2>{friend.name}</h2>
             <p><strong>Age:</strong> {friend.age}</p>
             <p><strong>Contact:</strong> {friend.email}</p>
-          </div>
+            <div className="optionsContainer">
+              <button className="update">Update</button>
+              <button className="delete">Delete</button>
+            </div>
+            </div>
         ))}
       </div>
+    </div>
     );
   }
 }
