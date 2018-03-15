@@ -10,28 +10,26 @@ class UpdateFriend extends React.Component {
     friendsList: [],
     name: '',
     age: 18,
-    email: ''
+    email: '',
+    id: this.props.match.params.id
   };
-
-  // getInitialState() {
-  //   axios.get('http://localhost:5000/friends')
-  //   .then(response => this.setState(() => ({ friendsList: response.data })))
-  //   .then()
-  //   .catch(error => console.error(error));
-  // }
 
   componentDidMount() {
     axios.get('http://localhost:5000/friends')
     .then(response => this.setState(() => ({ friendsList: response.data })))
-    .then()
     .catch(error => console.error(error));
   }
 
-  updateState() {
-    // const id = this.props.match.params.id;
-    // const friendsList = this.state.friendsList;
-  }
-
+  populateState = (event, state) => {
+    event.preventDefault();
+    this.setState(function() {
+      return {
+        name: this.state.friendsList[this.state.id - 1].name,
+        age: this.state.friendsList[this.state.id - 1].age,
+        email: this.state.friendsList[this.state.id - 1].email
+      }
+    });
+  };
 
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -40,8 +38,8 @@ class UpdateFriend extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { name, age, email } = this.state;
-    axios.post('http://localhost:5000/friends', { name, age, email })
+    const { name, age, email, id } = this.state;
+    axios.put(`http://localhost:5000/friends/${id}`, { name, age, email })
     .then(() => { this.props.history.push('/') })
     .catch(error => console.error(error));
   };
@@ -51,8 +49,9 @@ class UpdateFriend extends React.Component {
     <div className="addFriendContainer">
       <Link to="/">
         <p>Return to your friend's list</p>
+        <button onClick={this.populateState.bind(this.state)}>Show Friend Info</button>
       </Link>
-      <form className="addFriendForm" onSubmit={this.handleSubmit}>
+      <form className="addFriendForm" onSubmit={this.handleSubmit.bind(this.state)}>
         <label>
           Name:
           <br />
